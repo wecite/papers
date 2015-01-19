@@ -1,0 +1,92 @@
+##3. 统一的对象模型##
+Scala采用了一种纯粹的面向对象的模型，如同Smalltalk一样：每一个值都是对象，每一个操作都是消息传递。
+
+3.1	类（Classes）
+ 
+
+图1（原文为Figure 2，但图上是Figure 1——译注）展示了Scala的类层次结构。每一个类都继承自scala.Any，Any的子类可以划分为两个主要范畴（Categories），值类型（values classes）继承自scala.AnyVal，引用类型（reference classes）继承自scala.AnyRef。每一种Java的基本数据类型都对应于一种值类型，通过预定义的类型别名进行映射，而AnyRef则对应于Java环境中的根类：java.lang.Ojbect。引用类型的实例一般是通过指向堆中的一个对象的指针来实现的，而值类型则是直接表示的，不通过指针引用。两种类型对象可以相互转换，例如将一个值类型实例看做是根类Any的实例时，此时的装箱（boxing）操作及其逆操作是自动完成的，无需额外编码。
+	需要注意的是，值类型的类空间是平面的，即所有值类型继承自scala.AnyVal，但他们相互之间没有继承关系。作为替代，值类型之间有视图（即隐式类型转换，详见第9节）。我们曾经考虑另一种方式，即值类型之间相互继承，例如可以让Int类型继承自Float，而不是采用隐式类型转换。最终我们没有这样选择，主要是因为我们希望保持一点：将一个值解释为一个子类型的实例时，其表现形式不应与将其解释为其父类型的实例时相异。此外，我们还希望保证：对于任意两个类型S<:T（S是T的子类型——译注），S的每一个实例都应当满足注1：
+x.asInstanceOf[T].asInstanceOf[S] = x
+	（由于浮点数是非精确表示的，因此类型转换有可能带来精度的损失，例如：目前Scala当中Integer.MAX_VALUE-1=2147483646，这样的值经过toFloat、toInt两次转换后就得到了2147483647——译注）
+整个类层次结构的最底层有两个类型：scala.Null和scala.Nothing。Null是所有引用类型的子类，它只有一个实例，就是对象null。由于Null不是值类型的子类，所以null也不属于任何值类型，例如：将null赋值给一个int型变量是不可能的。
+Nothing则是所有其他类型的子类，这个类没有任何实例。即便如此，它仍然可以作为类型参数而体现其存在价值。例如：Scala的library定义了一个值Nil，它是List[Nothing]的实例，由于Scala中List是协变（covariant）的，从而对于所有类型T，Nil都是List[T]的实例。（协变的概念在后文有介绍，这里不进行说明了——译注）
+等词（“==”操作符）被设计为与类型的表现无关。对于值类型，它表示自然意义（数值、布尔值）上的相等，对于引用类型，它实际上相当于java.lang.Object的equals方法的别名。该方法本身被定义为引用相等，但可以被子类重新实现，用于表示子类在自然意义上的相等概念。例如：装箱后的值类型可以重新实现==用于比较被装箱的数值。而在Java中，==对于引用类型永远表示引用相等，虽然这样实现起来很容易，但却带来了很严重的一致性问题：两个本来相等的值装箱后再用==比较，可能就不再相等了。
+有些情况下需要使用引用相等而非自定义比较，例如Hash-consing（Hash构建），因为此时性能至关重要。对以这种情况，AnyRef类型定义了另一个方法，eq，与java的“==”相同，实现的是引用相等的比较，但不同的是它不能被子类重载。
+
+3.2	操作（Operations）
+Scala统一对象模型的另一个方面体现为每一个操作都是一个消息传递，也就是说是一个方法调用。例如：x与y相加操作x+y被解释为x.+y，也就是调用x这个对象的方法+，而y是该方法的参数。这种思想最早在Smalltalk中实现，在Scala中得到进一步改进，形成如下语法规约：首先，Scala将操作符作为普通标识符，也就是说，任何标识符或者以字母开头的一串字符、数字形成，或者以一串操作符形成。因此我们可以定义诸如+、<=、::等名称的方法。其次，Scala将任何两个表达式之间的标识符视为一个方法调用，例如：前述列表1当中的代码中，我们可以用(arg startsWith "-")作为语法糖（syntactic sugar）来替代默认的用法(arg.startsWith("-"))。
+下面用一个例子来说明用户自定义操作符如何声明和使用：一个表示自然数的类Nat，它用Zero和Succ这两个类的实例来表示一个数字（当然很低效），每一个数字N用new SuccN(Zero)来表示。我们先定义一个抽象类来描述自然数所支持的所有操作。根据Nat的定义，自然数有两个抽象方法：isZero、pred，和三个具体方法：succ、+、-。
+
+  abstract class Nat {
+    def isZero: Boolean
+    def pred: Nat
+    def succ: Nat = new Succ(this)
+    def + (x: Nat): Nat =
+      if (x.isZero) this else succ + x.pred
+    def - (x: Nat): Nat =
+      if (x.isZero) this else pred -x.pred
+  }
+
+注意Scala允许定义无参数方法，这种方法一旦名字被引用到即会调用，无需传递参数列表。另外，Scala类的抽象成员在语法上就通过没有定义来体现，无需添加abstract修饰符。
+现在我们通过一个单例对象Zero和一个类Succ来扩展Nat，分别表示0和非0的自然数。
+  object Zero extends Nat {
+    def isZero: Boolean = true
+    def pred: Nat = throw new Error("Zero.pred")
+    override def toString: String = "Zero"
+  }
+  
+  class Succ(n: Nat) extends Nat {
+    def isZero: Boolean = false
+    def pred: Nat = n
+    override def toString: String = "Succ("+n+")"
+  }
+
+Succ类显示了Scala和Java的一些不同之处：Scala中类的构造函数紧接着类的名称出现，不需要在类的定义体中出现与类同名的构造函数。这样的构造函数称为主构造函数（primary constructor），当一个主构造函数因为对象实例化而被调用时，整个类定义被调用。另外还存在次构造函数的语法定义，用于需要不止一个构造函数的情况，参见[35]的第5.2.1节。
+Zero对象和Succ类都实现了其父类Nat的两个抽象方法，同时还都覆盖了从Any继承来的toString方法。override关键字在覆盖被继承类的具体方法时是必须的，而用于实现父类中的抽象方法时则可以省略。这个操作符给出足够的冗余用来避免两类错误：一个是意外覆盖，即子类并不是有意覆盖父类中的方法，此时编译器将给出没有override操作符的错误信息。另一种类型的错误是覆盖路径中断，即父类方法参数变了，但没有修改子类对应方法，此时Scala编译器会给出没覆盖任何方法的错误信息，而不是自动将这个子类方法视为重载（overloading）。
+允许用户自定义中缀（infix）操作符引出一个问题，即他们的优先级和结合性（precedence and associativity）。一个解决方案是像Haskell或SML那样在定义每一个操作符时可以给出“结合度”（fixity），但是这种方式与模块化编程之间不能很好交互。Scala采用一种相对简化的固定优先级与结合性的策略。每个中缀操作符由其第一个字符所决定，这与Java当中所有以非字母字符开头的操作符的优先级是一致的。下面是从低到高的操作符优先级：
+  (所有字母)
+  |
+  ^
+  &
+  <、>
+  =、!
+  :
+  +、*
+  /、%
+  (所有其他特殊字符)
+
+	操作符一般是左结合的，x+y+z被解释为（x+y）+z，唯一的例外是以冒号（:）结尾的操作符是右结合的。一个例子是列表构造（list-consing）操作符“::”，xx::y::zs被解释为x::(y::zs)。右结合的操作符在方法方法查找上也是相反的，左结合操作符以其左方对象作为消息接收者，右结合操作符当然以右方对象为消息接收者。例如：x::y::zs被视作zs.::(y).::(x)。实际上，::是Scala的List类的一个方法，他将该方法参数对应的列表添加在接收消息的对象对应的列表的前面，并将合并成的新列表作为结果返回。
+某些Scala的操作符并不总对所有参数求值，例如标准布尔操作符&&和||，这种操作符也可以是方法调用，因为Scala的参数是允许传名的。下面是一个Bool类，模拟系统内建的布尔类型。
+  abstract class Bool {
+    def && (x: => Bool): Bool
+    def || (x: => Bool): Bool
+  }
+在这个类中，&&和||的形参是“=>Bool”，里面的箭头表示实际参数以未求值的状态进行传递，即参数在每一次被引用的时候才求值（也就是说这个参数实际上像一个无参数的函数一样）。
+这是Bool类型的两个典型（canonical）实例：
+  object False extends Bool {
+    def && (x: => Bool): Bool = this
+    def || (x: => Bool): Bool = x
+  }
+  object True extends Bool {
+    def && (x: => Bool): Bool = x
+    def || (x: => Bool): Bool = this
+  }
+
+从上述实现可以看出，&&（或者相应地||）操作，只有在左侧对象是True（或相应地False）的时候，右侧对象才会被求值。
+如同本节所示，在Scala中可以把所有操作符定义为方法，每一个操作则是一个方法调用。为了性能需求，Scala的编译器会把参数为值类型的操作直接编译为基本操作指令，但这对于编程者是完全透明的。
+在前面的例子中，Zero和Succ都继承一个类，这并不是唯一的可能性。在Scala中一个类或对象可以同时继承一个类以及若干个特征（traits），一个特征是一个抽象类，作用就是用来与其它类组合。特征有时候类似于Java中的接口，可以用于定义一套抽象方法，用于被其他类实现。但不同的是Scala的特征可以有属性以及具体方法。（traits将会在后面介绍——译注）
+
+3.3	变量和属性（Variables and Properties）
+如果所有操作都是方法调用，那么变量引用（dereferencing）和赋值语句呢？实际上，如果这两种操作是针对类成员变量，那么也是被解释为方法调用的。对于所有类成员变量x:T，Scala这样定义其getter和setter：
+  def x:T
+  def x_=(new val:T):unit
+这些方法引用和更新一个可修改（mutable）的内存单元，它不能被Scala程序直接访问。每一次x这个名称被引用，都会导致调用x这个无参数方法，同样，每次调用赋值语句：x=e，都是x_=(e) 这样一个方法调用。
+由于变量访问也是方法调用，从而使Scala可以定义类似C#的属性概念（properties），例如，下述Celsius类定义了一个属性degree，只能设置大于-273的值：
+
+  class Celsius {
+    private var d: Int = 0
+    def degree: Int = d
+    def degree_=(x: Int): Unit = if (x >= 273) d = x
+  }
+使用者可以使用这两个方法，如同他们是一个类成员变量一样：
+  val c = new Celsius; c.degree = c.degree-1
