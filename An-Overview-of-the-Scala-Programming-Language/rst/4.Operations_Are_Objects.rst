@@ -1,15 +1,12 @@
 4 操作也是对象（Operations Are Objects）
 ----------------------------------------
 
-Scala 是一种函数式编程语言，也就是说每一个函数都是一个值。Scala
-有很简洁的语法用于定义匿名和 curry 化函数（curried
-function），以及嵌套函数等。
+Scala 是一种函数式编程语言，也就是说每一个函数都是一个值。Scala 有很简洁的语法用于定义匿名和 curry 化函数（curried function），以及嵌套函数等。
 
 4.1 方法是函数式值（Methods are Functional Values）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-为了演示如何将函数作为一个值使用，我们定义一个 ``exists``
-函数，用于检测一个数组当中是否有符合条件的元素：
+为了演示如何将函数作为一个值使用，我们定义一个 ``exists`` 函数，用于检测一个数组当中是否有符合条件的元素：
 
 .. code:: Scala
 
@@ -19,15 +16,9 @@ function），以及嵌套函数等。
       i < xs.length
     }
 
-方法参数 ``[T]`` 表示数组类型是任意的（类型参数在 5.1
-节中详细介绍），参数 ``p`` 表示验证条件也是任意的，\ ``p``
-的类型是函数类型（function type）\ ``T => boolean``\ ，表示所有定义域是
-``T`` 类型，值域是 ``boolean``
-的函数。函数参数可以像普通函数一样执行，如上面的循环体中显示的 ``p``
-被调用那样。以函数作为参数或者返回值的函数，称为高阶函数。
+方法参数 ``[T]`` 表示数组类型是任意的（类型参数在 5.1 节中详细介绍），参数 ``p`` 表示验证条件也是任意的，\ ``p`` 的类型是函数类型（function type）\ ``T => boolean``\ ，表示所有定义域是 ``T`` 类型，值域是 ``boolean`` 的函数。函数参数可以像普通函数一样执行，如上面的循环体中显示的 ``p`` 被调用那样。以函数作为参数或者返回值的函数，称为高阶函数。 
 
-定义了 ``exists``\ ，我们可以通过双重否定来定义一个函数
-``forall``\ ，表示数组的所有元素没有一个不符合条件的，该函数定义如下：
+定义了 ``exists``\ ，我们可以通过双重否定来定义一个函数 ``forall``\ ，表示数组的所有元素没有一个不符合条件的，该函数定义如下：
 
 .. code:: Scala
 
@@ -36,9 +27,7 @@ function），以及嵌套函数等。
       !exists(xs, not_p)
     }
 
-函数 ``forall`` 内部定义了一个嵌套函数 ``not_p``\ ，表示不满足条件
-``p``\ 。嵌套函数可以访问所在环境的函数参数和本地变量，例如 ``not_p``
-访问了 ``forall`` 的参数 ``p``\ 。
+函数 ``forall`` 内部定义了一个嵌套函数 ``not_p``\ ，表示不满足条件 ``p``\ 。嵌套函数可以访问所在环境的函数参数和本地变量，例如 ``not_p`` 访问了 ``forall`` 的参数 ``p``\ 。
 
 Scala 还可以定义一个没有名字的函数，例如下面这个简版的 ``forall`` 函数：
 
@@ -47,29 +36,22 @@ Scala 还可以定义一个没有名字的函数，例如下面这个简版的 `
     def forall_short[T](xs: Array[T], p: T => boolean) =
       !exists(xs, (x: T) => !p(x))
 
-其中 ``(x: T) => !p(x)`` 定义了一个匿名函数（anonymous
-function），将类型为 ``T`` 的参数 ``p`` 映射为 ``!p(x)``\ 。
+其中 ``(x: T) => !p(x)`` 定义了一个匿名函数（anonymous function），将类型为 ``T`` 的参数 ``p`` 映射为 ``!p(x)``\ 。
 
-有了 ``exists`` 和 ``forall``\ ，我们可以定义一个函数
-``hasZeroRow``\ ，用以检验一个二维矩阵是否有一行全是 ``0``\ ：
+有了 ``exists`` 和 ``forall``\ ，我们可以定义一个函数 ``hasZeroRow``\ ，用以检验一个二维矩阵是否有一行全是 ``0``\ ：
 
 .. code:: Scala
 
     def hasZeroRow(matrix: Array[Array[int]]) =
       exists(matrix, (row: Array[int]) => forall(row, 0 ==))
 
-表达式 ``forall(row, 0 ==)`` 用于检测 ``row`` 是否只包含
-``0``\ 。这里，\ ``0`` 的 ``==`` 方法被作为参数传递给 ``forall`` 的参数
-``p``\ ，这显示了方法本身也是值，有点类似于 C# 中的
+表达式 ``forall(row, 0 ==)`` 用于检测 ``row`` 是否只包含 ``0``\ 。这里，\ ``0`` 的 ``==`` 方法被作为参数传递给 ``forall`` 的参数 ``p``\ ，这显示了方法本身也是值，有点类似于 C# 中的
 “\ ``delegates``\ ”。
 
 4.2 函数也是对象（Functions are Objects）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-既然方法是值，值是对象，方法当然也就是对象。实际上，函数类型和函数值（注意：指函数本身作为值
-—— 译注）只不过是相应的类及其实例的语法糖衣。函数类型 ``S => T``
-等价于参数化类型 ``scala.Function1[S, T]``\ ，这个类型定义在 ``Scala``
-标准类库中：
+既然方法是值，值是对象，方法当然也就是对象。实际上，函数类型和函数值（注意：指函数本身作为值 —— 译注）只不过是相应的类及其实例的语法糖衣。函数类型 ``S => T`` 等价于参数化类型 ``scala.Function1[S, T]``\ ，这个类型定义在 ``Scala`` 标准类库中：
 
 .. code:: Scala
 
@@ -78,11 +60,7 @@ function），将类型为 ``T`` 的参数 ``p`` 映射为 ``!p(x)``\ 。
       def apply(x: S): T
     }
 
-参数超过一个的函数也可类似地定义，一般而言，n-元函数类型：\ *(T1, T2, …,
-Tn) => T* 被解释为
-``Functionn[T1, T2, …, Tn, T]``\ 。也就是说，函数就是拥有 ``apply``
-方法的对象。例如，匿名函数
-“\ ``+1``\ ”：\ ``x: int => x+1``\ ，就是如下函数 ``Function1`` 的实例：
+参数超过一个的函数也可类似地定义，一般而言，n-元函数类型：\ *(T1, T2, …, Tn) => T* 被解释为 ``Functionn[T1, T2, …, Tn, T]``\ 。也就是说，函数就是拥有 ``apply`` 方法的对象。例如，匿名函数 “\ ``+1``\ ”：\ ``x: int => x+1``\ ，就是如下函数 ``Function1`` 的实例：
 
 .. code:: Scala
 
@@ -90,17 +68,12 @@ Tn) => T* 被解释为
       def apply(x: int): int = x + 1
     }
 
-反之，当一个函数类型的值被应用于参数之上（也就是调用 ——
-译注）时，这个类型的 ``apply`` 方法被自动插入，例如：对于
-``Function1[S, T]`` 类型的函数 ``p``\ ，\ ``p(x)`` 调用自然扩展为
-``p.apply(x)``\ 。
+反之，当一个函数类型的值被应用于参数之上（也就是调用 —— 译注）时，这个类型的 ``apply`` 方法被自动插入，例如：对于 ``Function1[S, T]`` 类型的函数 ``p``\ ，\ ``p(x)`` 调用自然扩展为 ``p.apply(x)``\ 。
 
 4.3 函数的细化（Refining Functions）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-既然 Scala 中函数类型是类，那么也可以再细化成为子类。以 ``Array``
-为例，这是一种以整数为定义域的特殊函数。\ ``Array[T]`` 继承自
-``Function1[int, T]``\ ，并添加了数组更新、长度等方法：
+既然 Scala 中函数类型是类，那么也可以再细化成为子类。以 ``Array`` 为例，这是一种以整数为定义域的特殊函数。\ ``Array[T]`` 继承自 ``Function1[int, T]``\ ，并添加了数组更新、长度等方法：
 
 .. code:: Scala
 
@@ -115,80 +88,45 @@ Tn) => T* 被解释为
       ...
     }
 
-赋值语句左侧的函数调用是存在特殊语法的，他们使用 ``update``
-方法。例如，\ ``a(i) = a(i) + 1`` 被翻译成：
+赋值语句左侧的函数调用是存在特殊语法的，他们使用 ``update`` 方法。例如，\ ``a(i) = a(i) + 1`` 被翻译成：
 
 .. code:: Scala
 
     a.update(i, a.apply(i) + 1)
 
-将 ``Array`` 存取翻译成方法调用看上去代价比较高，但是 Scala 中的
-inlining 变换可以将类似于上面的代码翻译成宿主系统的原生数组存取。 上述
-``Array`` 类型还定义了 ``exists`` 和 ``forall``
-方法，这样也就不必手工定义了，使用这些方法，\ ``hasZeroRow``
-可以如下定义：
+将 ``Array`` 存取翻译成方法调用看上去代价比较高，但是 Scala 中的 inlining 变换可以将类似于上面的代码翻译成宿主系统的原生数组存取。 上述 ``Array`` 类型还定义了 ``exists`` 和 ``forall`` 方法，这样也就不必手工定义了，使用这些方法，\ ``hasZeroRow`` 可以如下定义：
 
 .. code:: Scala
 
     def hasZeroRow(matrix: Array[Array[int]]) =
       matrix exists (row => row forall (0 ==))
 
-注意上述代码和相关操作的语言描述的对应性：“test whether in the matrix
-there exists a row such that in the row all elements are
-zeroes”（检测一个矩阵，看看它是否有一行的所有元素都等于
-``0``\ 。这里保留英语原文，因为原文中使用斜体部分对应于上述代码的内容，体现两种语法的对应关系
-—— 译注）。还要注意一点：在上面的匿名方法中，我们略去了参数 ``row``
-的类型，因为其类型可以被 Scala 编译器根据 ``matrix.exists``
-方法推断出来。
+注意上述代码和相关操作的语言描述的对应性：“test whether in the matrix there exists a row such that in the row all elements are zeroes”（检测一个矩阵，看看它是否有一行的所有元素都等于 ``0``\ 。这里保留英语原文，因为原文中使用斜体部分对应于上述代码的内容，体现两种语法的对应关系 —— 译注）。还要注意一点：在上面的匿名方法中，我们略去了参数 ``row`` 的类型，因为其类型可以被 Scala 编译器根据 ``matrix.exists`` 方法推断出来。
 
 4.4 序列（Sequences）
 ~~~~~~~~~~~~~~~~~~~~~
 
-高阶函数的使用是序列处理时的一个普遍特点。Scala
-类库定义了几种不同类型的序列：数组（arrays）、列表（lists）、流（streams）和迭代器（iterators）。所有的序列都继承自特征
-``trait Scala.Seq``\ ；从而都定义了一套方法使得相应处理更简介、高效。例如：\ ``map``
-方法将一个函数应用于一个序列的所有元素，产生一个以相应结果为元素的序列。另一个例子是
-``filter``
-方法，将一个断言（predicate）函数应用于所有的元素，产生一个由所有使该断言为真的元素组成的序列。
-下面这个 ``sqrts``
-函数展示了上述两个方法的使用，它以一个双精度浮点数的列表 ``xs``
-为参数，返回一个以其所有非负元素的平方根为元素的列表：
+高阶函数的使用是序列处理时的一个普遍特点。Scala 类库定义了几种不同类型的序列：数组（arrays）、列表（lists）、流（streams）和迭代器（iterators）。所有的序列都继承自特征 ``trait Scala.Seq``\ ；从而都定义了一套方法使得相应处理更简介、高效。例如：\ ``map`` 方法将一个函数应用于一个序列的所有元素，产生一个以相应结果为元素的序列。另一个例子是 ``filter`` 方法，将一个断言（predicate）函数应用于所有的元素，产生一个由所有使该断言为真的元素组成的序列。 下面这个 ``sqrts`` 函数展示了上述两个方法的使用，它以一个双精度浮点数的列表 ``xs`` 为参数，返回一个以其所有非负元素的平方根为元素的列表：
 
 .. code:: Scala
 
     def sqrts(xs: List[double]): List[double] =
       xs filter (0 <=) map Math.sqrt
 
-注意，\ ``Math.sqrt`` 是一个 Java 函数，但它可以与 Scala
-定义的函数一样的方式作为参数传递给高阶函数。
+注意，\ ``Math.sqrt`` 是一个 Java 函数，但它可以与 Scala 定义的函数一样的方式作为参数传递给高阶函数。
 
 4.5 For Comprehensions
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Scala 有一些特殊的语法用于更自然的表示某些特定的高阶函数的组合，其中 for
-comprehensions 就是对 Haskell 等语言中的 list comprehensions
-进一步泛化。用 for comprehensions 写的 ``sqrts`` 如下：
+Scala 有一些特殊的语法用于更自然的表示某些特定的高阶函数的组合，其中 for comprehensions 就是对 Haskell 等语言中的 list comprehensions 进一步泛化。用 for comprehensions 写的 ``sqrts`` 如下：
 
 .. code:: Scala
 
     def sqrts(xs: List[double]): List[double] =
       for (val x <- xs; 0 <= x) yield Math.sqrt(x)
 
-这里，\ ``val x <- xs`` 是一个生成器（generator），产生一个序列，而
-``0 <= x``
-是一个过滤器（filter），从前者产生的序列中根据某些条件过滤掉一些元素。这个
-comprehension 返回另一个由 ``yield`` 子句所产生的数值构成的序列。一个
-comprehension 可以有多个生成器。
+这里，\ ``val x <- xs`` 是一个生成器（generator），产生一个序列，而 ``0 <= x`` 是一个过滤器（filter），从前者产生的序列中根据某些条件过滤掉一些元素。这个 comprehension 返回另一个由 ``yield`` 子句所产生的数值构成的序列。一个 comprehension 可以有多个生成器。
 
-For comprehension 对应于 ``map``\ 、\ ``flatMap`` 和 ``filter``
-等高阶方法的组合，上面这个使用 for comprehension 实现的 ``sqrts`` 与 4.4
-节那个实现是相同的。
+For comprehension 对应于 ``map``\ 、\ ``flatMap`` 和 ``filter`` 等高阶方法的组合，上面这个使用 for comprehension 实现的 ``sqrts`` 与 4.4 节那个实现是相同的。
 
-For comprehension 的主要优势在于它并不受特定数据类型的限制，任何定义了
-``map``\ 、\ ``flatMap`` 和 ``filter``
-方法的类型都可以使用它，包括所有序列类型[2]、选项值（optional
-values）和数据库接口以及一些其他类型。用户还可以将 for comprehension
-用于自定义类型，只要定义和实现了相关方法。 在 Scala 中，For 循环与
-comprehensions 类似，对应于 ``foreach`` 和 ``filter`` 的组合。例如：列表
-1 当中的 for 循环： ``for (val arg <- args) ...`` 对应于
-``args foreach (arg => ...)`` 。
+For comprehension 的主要优势在于它并不受特定数据类型的限制，任何定义了 ``map``\ 、\ ``flatMap`` 和 ``filter`` 方法的类型都可以使用它，包括所有序列类型[2]、选项值（optional values）和数据库接口以及一些其他类型。用户还可以将 for comprehension 用于自定义类型，只要定义和实现了相关方法。 在 Scala 中，For 循环与 comprehensions 类似，对应于 ``foreach`` 和 ``filter`` 的组合。例如：列表 1 当中的 for 循环： ``for (val arg <- args) ...`` 对应于 ``args foreach (arg => ...)`` 。
