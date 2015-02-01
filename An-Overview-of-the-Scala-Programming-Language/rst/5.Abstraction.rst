@@ -51,8 +51,8 @@ inference [41, 39]）根据预期的返回值以及参数类型推理出来。�
     val y = new GenCell(2)
     swap(x, y)
 
-**参数限定（Parameter bounds）。** 考虑这样一个方法：\ ``updateMax``\ ，它将一个
- cell 的值设置为其当前值与一个给定值之间较大的那个。我们希望这个函数能够作用于所
+**参数限定（Parameter bounds）。** 考虑这样一个方法：\ ``updateMax``\ ，它将一个 
+cell 的值设置为其当前值与一个给定值之间较大的那个。我们希望这个函数能够作用于所
 有的 cell 类型，只要其值类型能够按照一个特征 ``trait Ordered`` 定义的 “\ ``<``\ ” 
 操作符进行比较。目前假定这个特征定义如下：（更精确的定义在 Scala 标准类库中）
 
@@ -88,19 +88,19 @@ inference [41, 39]）根据预期的返回值以及参数类型推理出来。�
     y.set(1)
     val z: String = y.get
 
-``GenCell`` 中的可变（mutable）变量使其无法成为协变的。实际上，\ ``GenCell[String]``
- 不是 ``GenCell[Any]`` 的子类，因为有些可以针对 ``GenCell[Any]`` 的操作不能应用于 
+``GenCell`` 中的可变（mutable）变量使其无法成为协变的。实际上，\ ``GenCell[String]`` 
+不是 ``GenCell[Any]`` 的子类，因为有些可以针对 ``GenCell[Any]`` 的操作不能应用于 
 ``GenCell[String]``\ ，例如将其设置一个整型值。 另一方面，对于不可变数据类型，构
-造子的协变性是很自然成立的。例如：一个不可变的整数列表自然可以被看做是一个 ``Any``
- 列表的特例。此外，在另一些情况下我们正好需要逆协变性（contravariance），例如一个
+造子的协变性是很自然成立的。例如：一个不可变的整数列表自然可以被看做是一个 ``Any`` 
+列表的特例。此外，在另一些情况下我们正好需要逆协变性（contravariance），例如一个
 输出管道 ``Chan[T]``\ ，有一个以 ``T`` 为类型参数的写操作，我们自然希望对于所有 
 ``T <: S``\ ，都有 ``Chan[S] <: Chan[T]``\ 。
 
 Scala 允许通过 “\ ``+/-``\ ” 定义类型参数的协变性，用 “\ ``+``\ ” 放在类型参数前
 表示构造子对于该参数是协变的，“\ ``-``\ ” 则表示逆协变，没有任何符号则表示非协变。
 
-下面的 ``GenList`` 定义了一个协变的列表，包含 ``isEmpty``\ 、\ ``head`` 和 ``tail``
- 等三个方法。
+下面的 ``GenList`` 定义了一个协变的列表，包含 ``isEmpty``\ 、\ ``head`` 和 ``tail`` 
+等三个方法。
 
 .. code:: Scala
 
@@ -130,8 +130,8 @@ Scala 的类型系统通过跟踪类型参数的每一次使用来确保协变�
     }
 
 注意：\ ``Empty`` 对象代表一个空列表，其元素可以是任何类型。这一点就是由协变性保
-证的，因为 ``Empty`` 的类型是 ``GenList[Nothing]``\ ，对于任何T而言，它都是 ``GenList[T]``
- 的子类型。
+证的，因为 ``Empty`` 的类型是 ``GenList[Nothing]``\ ，对于任何T而言，它都是 
+``GenList[T]`` 的子类型。
 
 **二元操作和参数下界（Binary methods and lower bounds）。** 迄今为止，我们一直将
 协变性与不可变数据结构联系在一起，然而由于二元操作（Binary methods，就是指一个对
@@ -147,9 +147,9 @@ Scala 的类型系统通过跟踪类型参数的每一次使用来确保协变�
     }
 
 可惜这样做会导致类型错误，因为这种定义使得 ``T`` 在 ``GenList`` 中处于逆协变的位
-置，从而不能标记为协变参数（\ ``+T``\ ）。这一点非常遗憾，因为从概念上说不可变的
- list 对于其元素类型而言应该是协变的，不过这个问题可以通过参数下界对 ``prepend``
- 方法进行泛化而解决：
+置，从而不能标记为协变参数（\ ``+T``\ ）。这一点非常遗憾，因为从概念上说不可变的 
+list 对于其元素类型而言应该是协变的，不过这个问题可以通过参数下界对 ``prepend`` 
+方法进行泛化而解决：
 
 .. code:: Scala
 
@@ -159,14 +159,14 @@ Scala 的类型系统通过跟踪类型参数的每一次使用来确保协变�
     }
 
 这里 ``prepend`` 是一个多态方法，接收 ``T`` 的某个父类型 ``S`` 作为参数，返回元素
-类型为 ``S`` 的list。这个定义是合法的，因为参数下界被归类为协变位置，从而 ``T`` 在
- ``GenList`` 中只出现在协变位置上。
+类型为 ``S`` 的list。这个定义是合法的，因为参数下界被归类为协变位置，从而 ``T`` 在 
+``GenList`` 中只出现在协变位置上。
 
 **与通配符模式相比较（Comparison with wildcards）。** Java 5.0 中可以提供一种通过
 通配符标记协变性的方法 [45]，这种模式本质上是 Igarashi 和 Viroli 提出的可变类型参
 数 [26] 的一种语法变体。与 Scala 不同的是，Java 5.0 的标注是针对类型表达式而不是
-类型定义。例如：在每一个需要用到协变的 generic list 的时候，都将其声明为
- ``GenList<? extends T>``\ ，这是一个类型表达式，表示其所声明的对象实例的所有元素
+类型定义。例如：在每一个需要用到协变的 generic list 的时候，都将其声明为 
+``GenList<? extends T>``\ ，这是一个类型表达式，表示其所声明的对象实例的所有元素
 都是 ``T`` 的子类型。 协变通配符可以用于任何类型表达式当中，但是要注意，出现在非
 协变的位置上的类型成员将会被忽略（forgotten），这对于保证类型的正确性是必须的。例
 如：\ ``GenCell<? extends Number>`` 类型只有那个 ``get`` 方法（返回 ``Number`` 类
@@ -185,8 +185,8 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
 5.2 抽象成员（Abstraction Members）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-在 Scala 中，面向对象的抽象方式可以与函数式抽象起到同样的作用。例如：下例是一个以
- OO 抽象方式定义的 Cell 类型。
+在 Scala 中，面向对象的抽象方式可以与函数式抽象起到同样的作用。例如：下例是一个以 
+OO 抽象方式定义的 Cell 类型。
 
 .. code:: Scala
 
@@ -207,8 +207,8 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
     val cell = new AbsCell { type T = int; val init = 1 }
     cell.set(cell.get * 2)
 
-这里，cell 的类型是 ``AbsCell { type T = int }``\ ，也就是 ``AbsCell`` 被
- ``{ type T = int }`` 细化（refinement）而形成的类型。访问 cell 值的代码认为其类
+这里，cell 的类型是 ``AbsCell { type T = int }``\ ，也就是 ``AbsCell`` 被 
+``{ type T = int }`` 细化（refinement）而形成的类型。访问 cell 值的代码认为其类
 型别名 ``cell.T=int``\ ，因此上面第二条语句是合法的。
 
 **路径依赖类型（Path-dependent types）。** 不知道 ``AbsCell`` 绑定的类型情况下，
@@ -219,10 +219,10 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
 
       def reset(c: AbsCell): unit = c.set(c.init)
 
-为什么可以这样做呢？因为 ``c.init`` 的类型是 ``c.T``\ ，而 ``c.set`` 是
- ``c.T => unit`` 类型的函数，因此形参与实参类型一致，方法调用是类型正确的。 ``c.T``
- 是一个路径依赖类型的例子，通常来讲，这种类型的形式是：\ *x1. ...  .xn.t*\ ，这里
- *n > 0*\ ，\ *x1, ..., xn* 是不可变的值，而 *t* 是 *xn* 的类型成员。路径依赖类型
+为什么可以这样做呢？因为 ``c.init`` 的类型是 ``c.T``\ ，而 ``c.set`` 是 
+``c.T => unit`` 类型的函数，因此形参与实参类型一致，方法调用是类型正确的。 ``c.T`` 
+是一个路径依赖类型的例子，通常来讲，这种类型的形式是：\ *x1. ...  .xn.t*\ ，这里 
+*n > 0*\ ，\ *x1, ..., xn* 是不可变的值，而 *t* 是 *xn* 的类型成员。路径依赖类型
 是 Scala 的一个新颖的特性，其理论基础是 *νObj calculus* [36]。 路径依赖类型要依靠
 其前缀路径的不可变性，下面给出一个违反了不可变性的例子：
 
@@ -243,12 +243,12 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
 
 **类型选择与单例类型（Type selection and singleton types）。** 在 Java 中，类型定
 义可以嵌套，嵌套类型用其外部类型做前缀的形态表示。在 Scala 中，则通过 “外部类型#
-内部类型”（\ ``Outer#Inner``\ ）的方式来表示，“\ ``#``\ ” 就称作类型选择（Type
- Selection）。从概念上说，这与路径依赖类型（例如：\ ``p.Inner``\ ）不同，因为 ``p``
- 是一个值，不是一个类型。进一步而言，\ ``Outer#t`` 也是一个无效表达式，如果 ``t``
- 是一个定义在 ``Outer`` 中的抽象类型的话。 实际上，路径依赖类型可以被扩展成为类型
-选择，\ ``p.t`` 可以看做是 ``p.type#t``\ ，这里 ``p.type`` 就称作单例类型，仅代表
- ``p`` 所指向对象的类型。单例类型本身对于支持方法调用串接很有作用，考虑如下代码：
+内部类型”（\ ``Outer#Inner``\ ）的方式来表示，“\ ``#``\ ” 就称作类型选择（Type 
+Selection）。从概念上说，这与路径依赖类型（例如：\ ``p.Inner``\ ）不同，因为 ``p`` 
+是一个值，不是一个类型。进一步而言，\ ``Outer#t`` 也是一个无效表达式，如果 ``t`` 
+是一个定义在 ``Outer`` 中的抽象类型的话。 实际上，路径依赖类型可以被扩展成为类型
+选择，\ ``p.t`` 可以看做是 ``p.type#t``\ ，这里 ``p.type`` 就称作单例类型，仅代表 
+``p`` 所指向对象的类型。单例类型本身对于支持方法调用串接很有作用，考虑如下代码：
 \ ``C`` 有一个 ``incr`` 方法，对其值 ``+1``\ ，其子类 ``D`` 由一个 ``decr`` 方法，
 对其值 ``-1``\ 。
 
@@ -269,13 +269,13 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
     val d = new D; d.incr.decr
 
 如果没有 ``this.type`` 这个单例类型，上述调用是非法的，因为 ``d.incr`` 的类型应该
-是 ``C``\ ，但 ``C`` 并没有 ``decr`` 方法。从这个意义上说，\ ``this.type`` 类似于
- Kim Bruce 的 mytype [29] 的一个协变的使用方式。
+是 ``C``\ ，但 ``C`` 并没有 ``decr`` 方法。从这个意义上说，\ ``this.type`` 类似于 
+Kim Bruce 的 mytype [29] 的一个协变的使用方式。
 
 **族多态和self类型（Family polymorphism and self types）。** Scala 的抽象类型概念
-非常适合于描述相互之间协变的一族（families）类型，这种概念称作族多态。例如：考虑
- publish/subscribe 模式，它有两个主要类型：subjects 和 observers。Subjects 定义了
- ``subscribe`` 方法，用于给 observers 进行注册，同时还有一个 ``publish`` 方法，用
+非常适合于描述相互之间协变的一族（families）类型，这种概念称作族多态。例如：考虑 
+publish/subscribe 模式，它有两个主要类型：subjects 和 observers。Subjects 定义了 
+``subscribe`` 方法，用于给 observers 进行注册，同时还有一个 ``publish`` 方法，用
 于通知所有的注册者；通知是通过调用所有注册者的 ``notify`` 方法实现的。一般来说，
 当 subject 的状态发生改变时，会调用 ``publish`` 方法。一个 subject 可以有多个 observers，
 一个 observer 也可以观察多个 subject。\ ``subscribe`` 方法一般用 observer 的标识
@@ -305,23 +305,23 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
 册的 observer 的列表。\ ``Observer`` 这个 ``trait`` 只定义了一个抽象方法 ``notify``\ 。 
 需要注意的是，\ ``Subject`` 和 ``Observer`` 并没有直接引用对方，因为这种 “硬” 引
 用将会影响客户代码对这些类进行协变的扩展。相反，\ ``SubjectOberver`` 定义了两个抽
-象类型 ``S`` 和\ ``O``\ ，分别以 ``Subject`` 和 ``Observer`` 作为上界。\ ``Subject``
- 和 ``Observer`` 的类型分别通过这两个抽象类型引用对方。 另外还要注意，\ ``Subject``
- 类使用了一个特殊的标注 ``requires``\ ：
+象类型 ``S`` 和\ ``O``\ ，分别以 ``Subject`` 和 ``Observer`` 作为上界。\ ``Subject`` 
+和 ``Observer`` 的类型分别通过这两个抽象类型引用对方。 另外还要注意，\ ``Subject`` 
+类使用了一个特殊的标注 ``requires``\ ：
 
 .. code:: Scala
 
     abstract class Subject requires S { ...
 
-这个标注表示 ``Subject`` 类只能作为 ``S`` 的某个子类被实例化，这里 ``S`` 被称作
- ``Subject`` 的 self-type。在定义一个类的时候，如果指定了 self-type，则这个类定义
-中出现的所有 ``this`` 都被认为属于这个 self-type 类型，否则被认为是这个类本身。在
- ``Subject`` 类中，必须将 self-type 指定为 ``S``\ ，才能保证 ``obs.notify(this)``
- 调用类型正确。 Self-type 可以是任意类型，并不一定与当前正在定义的类型相关。依靠
+这个标注表示 ``Subject`` 类只能作为 ``S`` 的某个子类被实例化，这里 ``S`` 被称作 
+``Subject`` 的 self-type。在定义一个类的时候，如果指定了 self-type，则这个类定义
+中出现的所有 ``this`` 都被认为属于这个 self-type 类型，否则被认为是这个类本身。在 
+``Subject`` 类中，必须将 self-type 指定为 ``S``\ ，才能保证 ``obs.notify(this)`` 
+调用类型正确。 Self-type 可以是任意类型，并不一定与当前正在定义的类型相关。依靠
 如下两个约束，类型正确性仍然可以得到保证：(1) 一个类型的 self-type 必须是其所有父
 类型的子类，(2) 当使用 ``new`` 对一个类进行实例化时，编译器将检查其 self-type 必
-须是这个类的父类。 这个 publish/subscribe 模式中所定义的机制可以通过继承
- ``SubjectObserver``\ ，并定义应用相关的 ``Subject`` 和 ``Observer`` 类来使用。例
+须是这个类的父类。 这个 publish/subscribe 模式中所定义的机制可以通过继承 
+``SubjectObserver``\ ，并定义应用相关的 ``Subject`` 和 ``Observer`` 类来使用。例
 如下面的 ``SensorReader`` 对象，将传感器（sensors）作为 subjects，而将显示器
 （displays）作为 observers。
 
@@ -375,8 +375,8 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
       }
     }
 
-另外值得注意的是其中的 ``import`` 语句，它使 ``Test`` 可以直接访问 ``SensorReader``
- 的成员，而无需前缀。Scala 的 ``import`` 比 Java 中用法更广泛，可以在任何地方使用，
+另外值得注意的是其中的 ``import`` 语句，它使 ``Test`` 可以直接访问 ``SensorReader`` 
+的成员，而无需前缀。Scala 的 ``import`` 比 Java 中用法更广泛，可以在任何地方使用，
 可以从任何对象中导入成员，而不仅仅从一个 ``package`` 中。
 
 5.3 用抽象类型建立泛型模型（Modeling Generics with Abstract Types）
@@ -400,8 +400,8 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
 
 
 也就是说，\ ``C`` 的类型参数可以用其抽象成员来重新定义。如果类型参数有上界或者下
-界，则可以带到抽象成员的定义上。类型参数的协变性则不带到抽象成员的定义上，参见第
- 4 点。
+界，则可以带到抽象成员的定义上。类型参数的协变性则不带到抽象成员的定义上，参见第 
+4 点。
 
 2. 以 ``T`` 为参数创建实例的调用：\ ``new C[T]`` 可以写成：
 
