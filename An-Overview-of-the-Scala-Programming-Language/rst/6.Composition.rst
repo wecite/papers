@@ -10,7 +10,7 @@
       def next: T
     }
 
-注意上面出现的关键字 **``trait``**\ 。Trait 是一种特殊的抽象类，它的构造方法没有任何值参数。Traits 可以出现任何抽象类可以出现的地方，但反之不然，只有 traits 可以用于混入。 下面，我们用一个 ``trait`` 继承自 ``AbsIterator``\ ，并增加一个方法 ``foreach``\ ，用于将一个函数作用于该迭代子返回的每一个元素上。
+注意上面出现的关键字 ``trait``\ 。Trait 是一种特殊的抽象类，它的构造方法没有任何值参数。Traits 可以出现任何抽象类可以出现的地方，但反之不然，只有 traits 可以用于混入。 下面，我们用一个 ``trait`` 继承自 ``AbsIterator``\ ，并增加一个方法 ``foreach``\ ，用于将一个函数作用于该迭代子返回的每一个元素上。
 
 .. code:: Scala
 
@@ -116,7 +116,7 @@
       with SyncIterator[char]
       with LoggedIterator[char]
 
-在这里，Iter2的全序化是：
+在这里，\ ``Iter2`` 的全序化是：
 
 .. code:: Scala
 
