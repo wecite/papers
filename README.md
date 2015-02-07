@@ -1,2 +1,2 @@
 # papers
-writings or translations
+writings and translations
