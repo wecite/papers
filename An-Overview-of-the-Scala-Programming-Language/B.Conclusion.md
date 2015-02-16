@@ -10,4 +10,4 @@ Scala提供了一整套强大的语法结构用于组件的构成、抽象和适
 
 Scala这种实现扩展性的方式，从某种意义上讲把做出良好设计的责任从语言的发明者转移到了使用者身上——设计出糟糕的类库和设计出糟糕的语言效果差不多了。当然，我们还是相信Scala的语法构造，相对于目前的主流语言，能够帮助使用者更容易设计出良好的类库。
 
-**声明**Scala的设计和实现，部分来自于瑞士国家基金NFS 21-61825项目的支持，瑞士国家竞争力中心MICS研究项目，欧洲Framework 6 PalCom项目，微软研究院，Hasler基金会。 同时，Gilad Bracha, Craig Chambers, Erik Ernst, Matthias Felleisen, Shriram Krishnamurti, Gary Leavens, Sebastian Maneth, Erik Mejer, Oscar Nierstrasz, Klaus Ostermann, Didier Rémy, Mads Torgersen, 及 Philip Wadler 等人通过活跃的、有启发性的讨论，为语言的成形做出了贡献。 Scala邮件列表的参与者，也为语言和工具的改进提供了非常有益的反馈。
+**声明** Scala的设计和实现，部分来自于瑞士国家基金NFS 21-61825项目的支持，瑞士国家竞争力中心MICS研究项目，欧洲Framework 6 PalCom项目，微软研究院，Hasler基金会。 同时，Gilad Bracha, Craig Chambers, Erik Ernst, Matthias Felleisen, Shriram Krishnamurti, Gary Leavens, Sebastian Maneth, Erik Mejer, Oscar Nierstrasz, Klaus Ostermann, Didier Rémy, Mads Torgersen, 及 Philip Wadler 等人通过活跃的、有启发性的讨论，为语言的成形做出了贡献。 Scala邮件列表的参与者，也为语言和工具的改进提供了非常有益的反馈。
