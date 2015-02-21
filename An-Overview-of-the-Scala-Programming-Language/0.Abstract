@@ -1,0 +1,16 @@
+#Scala语言概览（An Overview of the Scala Programming Language）#
+
+**Second Edition**
+
+Martin Odersky, Philippe Altherr, Vincent Cremet, Iulian Dragos
+Gilles Dubochet, Burak Emir, Sean McDirmid, Stéphane Micheloud,
+Nikolay Mihaylov, Michel Schinz, Erik Stenman, Lex Spoon, Matthias Zenger
+
+École Polytechnique Fédérale de Lausanne (EPFL)
+1015 Lausanne, Switzerland
+
+Technical Report LAMP-REPORT-2006-001
+
+##摘要（Abstract）#
+
+Scala将面向对象和函数式编程融合在一个静态类型语言中，他面向组件或组件体系的开发，本文给出Scala语言的概览，主要面向具有编程方法和编程语言设计经验的读者。
