@@ -1,10 +1,10 @@
-4 操作也是对象（Operations Are Objects）
+操作也是对象（Operations Are Objects）
 ----------------------------------------
 
 Scala 是一种函数式编程语言，也就是说每一个函数都是一个值。Scala 有很简洁的语法用
 于定义匿名和 curry 化函数（curried function），以及嵌套函数等。
 
-4.1 方法是函数式值（Methods are Functional Values）
+方法是函数式值（Methods are Functional Values）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 为了演示如何将函数作为一个值使用，我们定义一个 ``exists`` 函数，用于检测一个数组
@@ -60,7 +60,7 @@ Scala 还可以定义一个没有名字的函数，例如下面这个简版的 `
 的 ``==`` 方法被作为参数传递给 ``forall`` 的参数 ``p``\ ，这显示了方法本身也是值，
 有点类似于 C# 中的 “\ ``delegates``\ ”。
 
-4.2 函数也是对象（Functions are Objects）
+函数也是对象（Functions are Objects）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 既然方法是值，值是对象，方法当然也就是对象。实际上，函数类型和函数值（注意：指函
@@ -89,7 +89,7 @@ Scala 还可以定义一个没有名字的函数，例如下面这个简版的 `
 方法被自动插入，例如：对于 ``Function1[S, T]`` 类型的函数 ``p``\ ，\ ``p(x)`` 调
 用自然扩展为 ``p.apply(x)``\ 。
 
-4.3 函数的细化（Refining Functions）
+函数的细化（Refining Functions）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 既然 Scala 中函数类型是类，那么也可以再细化成为子类。以 ``Array`` 为例，这是一种
@@ -133,7 +133,7 @@ a row such that in the row all elements are zeroes”（检测一个矩阵，看
 们略去了参数 ``row`` 的类型，因为其类型可以被 Scala 编译器根据 ``matrix.exists`` 
 方法推断出来。
 
-4.4 序列（Sequences）
+序列（Sequences）
 ~~~~~~~~~~~~~~~~~~~~~
 
 高阶函数的使用是序列处理时的一个普遍特点。Scala 类库定义了几种不同类型的序列：数
@@ -153,7 +153,7 @@ a row such that in the row all elements are zeroes”（检测一个矩阵，看
 注意，\ ``Math.sqrt`` 是一个 Java 函数，但它可以与 Scala 定义的函数一样的方式作为
 参数传递给高阶函数。
 
-4.5 For Comprehensions
+For Comprehensions
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Scala 有一些特殊的语法用于更自然的表示某些特定的高阶函数的组合，其中 for comprehensions 

@@ -1,3 +1,7 @@
+.. raw:: latex
+
+    \setcounter{secnumdepth}{-1}
+
 Scala语言概览（An Overview of the Scala Programming Language）
 ==============================================================
 

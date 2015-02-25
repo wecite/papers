@@ -1,4 +1,4 @@
-8 XML 处理（XML Processing）
+XML 处理（XML Processing）
 ----------------------------
 
 XML 是一种流行的数据结构，Scala 针对处理 XML
@@ -6,7 +6,7 @@ XML 是一种流行的数据结构，Scala 针对处理 XML
 和类用于构造XML的数据模型，从而可以采用模式匹配的解构方式来处理 XML
 类型的数据。
 
-8.1 数据模型
+数据模型
 ~~~~~~~~~~~~
 
 在 Scala 中，XML 的数据模型代表一个有序无权树（ordered unranked
@@ -40,7 +40,7 @@ Scala（与 XQuery 的约定类似），例如：一个拥有文本子节点的 
 节点，就可以用 ``<date>{ df.format(new java.util.Date()) }</date>``
 来表示当前日期。
 
-8.2 模式校验（Schema Validation）
+模式校验（Schema Validation）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 XML 文档的类型一般通过 schema 来定义，主要的形式化 schema 类型包括
@@ -51,7 +51,7 @@ DTD、XML Scahma（也就是XSD）和 RELAX NG。目前 Scala 只提供了对 DT
 方法，通过模式匹配的方式实例化相关类来针对 DTD 进行校验。未来 Scala
 还将支持针对 XML Schema 的校验，包含针对普通类型的静态语法检查。
 
-8.3 序列匹配（Sequence Matching）
+序列匹配（Sequence Matching）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Scala 支持通过模式匹配来分解 XML 节点数据，并且匹配过程扔可以使用 XML
@@ -94,7 +94,7 @@ patterns）的一种扩充，提供了匹配从 0
 的上个版本还（直接）支持通用的正则表达式，不过上面介绍的这种（相对于正则表达式而言）特殊的模式已经基本能满足现实世界的绝大部分需要了，并且避免了全面支持正则表达式而需要的自顶向下的对正则树模式的检测和翻译，因为他们与
 Scala 的模式语法非常不匹配。
 
-8.4 用 For Comprehension 实现 XML 查询（XML Queries through For Comprehension）
+用 For Comprehension 实现 XML 查询（XML Queries through For Comprehension）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 一般的模式匹配方法，每次只能匹配一个模式，对于 XML
