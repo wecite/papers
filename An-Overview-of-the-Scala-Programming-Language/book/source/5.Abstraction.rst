@@ -13,7 +13,7 @@
 
 下面这个类定义了一个可以读取和写入数值的单元（cell）：
 
-.. code:: Scala
+.. code-block:: Scala
 
     class GenCell[T](init: T) {
       private var value: T = init
@@ -25,7 +25,7 @@
 （\ *generic*\ ）。 与类相近，方法也可以有类型参数，下面这个 ``swap`` 方法交换两个
  cell 的内容，只要它们包含的值类型相同：
 
-.. code:: Scala
+.. code-block:: Scala
 
     def swap[T](x: GenCell[T], y: GenCell[T]): unit = {
       val t = x.get; x.set(y.get); y.set(t)
@@ -33,7 +33,7 @@
 
 下面这段程序创建两个整数单元，并且交换它们的值：
 
-.. code:: Scala
+.. code-block:: Scala
 
     val x: GenCell[int] = new GenCell[int](1)
     val y: GenCell[int] = new GenCell[int](2)
@@ -45,7 +45,7 @@
 inference [41, 39]）根据预期的返回值以及参数类型推理出来。因此，上面的程序可以写
 成这种省略参数类型的方式：
 
-.. code:: Scala
+.. code-block:: Scala
 
     val x = new GenCell(1)
     val y = new GenCell(2)
@@ -56,7 +56,7 @@ cell 的值设置为其当前值与一个给定值之间较大的那个。我们
 有的 cell 类型，只要其值类型能够按照一个特征 ``trait Ordered`` 定义的 “\ ``<``\ ” 
 操作符进行比较。目前假定这个特征定义如下：（更精确的定义在 Scala 标准类库中）
 
-.. code:: Scala
+.. code-block:: Scala
 
     trait Ordered[T] {
       def < (x: T): boolean
@@ -65,7 +65,7 @@ cell 的值设置为其当前值与一个给定值之间较大的那个。我们
 这样，\ ``updateMax`` 方法可以通过如下方式进行泛型定义，其中使用到的方法称为限定
 多态（Bounded polymorphism）：
 
-.. code:: Scala
+.. code-block:: Scala
 
     def updateMax[T <: Ordered[T]](c: GenCell[T], x: T) =
       if (c.get < x) c.set(x)
@@ -81,7 +81,7 @@ cell 的值设置为其当前值与一个给定值之间较大的那个。我们
 造子称为协变的（covariant）。可以看出 ``GenCell`` 这个类型构造子显然不是协变的，
 否则的话，下面这段代码就是合法的，但实际上它将会在运行时抛出错误：
 
-.. code:: Scala
+.. code-block:: Scala
 
     val x: GenCell[String] = new GenCell[String]("abc")
     val y: GenCell[Any] = x; // illegal!
@@ -102,7 +102,7 @@ Scala 允许通过 “\ ``+/-``\ ” 定义类型参数的协变性，用 “\ `
 下面的 ``GenList`` 定义了一个协变的列表，包含 ``isEmpty``\ 、\ ``head`` 和 ``tail`` 
 等三个方法。
 
-.. code:: Scala
+.. code-block:: Scala
 
     abstract class GenList[+T] {
       def isEmpty: boolean
@@ -116,7 +116,7 @@ Scala 的类型系统通过跟踪类型参数的每一次使用来确保协变�
 参数的内部，协变与逆协变是反转的。类型系统保证协变（逆协变）的类型参数总是出现在
 协变（逆协变）的位置上。 下面是 ``GenList`` 的两个实现：
 
-.. code:: Scala
+.. code-block:: Scala
 
     object Empty extends GenList[Nothing] {
       def isEmpty: boolean = true
@@ -139,7 +139,7 @@ Scala 的类型系统通过跟踪类型参数的每一次使用来确保协变�
 种做法并不完全正确。例如，为 ``GenList`` 类增加一个 ``prepend``\ （前追加）方法，
 最自然的做法是将其定义成为接收一个相应的 list 元素类型参数：
 
-.. code:: Scala
+.. code-block:: Scala
 
     abstract class GenList[+T] { ...
       def prepend(x: T): GenList[T] = // illegal!
@@ -151,7 +151,7 @@ Scala 的类型系统通过跟踪类型参数的每一次使用来确保协变�
 list 对于其元素类型而言应该是协变的，不过这个问题可以通过参数下界对 ``prepend`` 
 方法进行泛化而解决：
 
-.. code:: Scala
+.. code-block:: Scala
 
     abstract class GenList[+T] { ...
       def prepend[S >: T](x: S): GenList[S] = // OK
@@ -188,7 +188,7 @@ Scala 的 mixin 合成（见第 6 节）可以让人很容易将一个类分成�
 在 Scala 中，面向对象的抽象方式可以与函数式抽象起到同样的作用。例如：下例是一个以 
 OO 抽象方式定义的 Cell 类型。
 
-.. code:: Scala
+.. code-block:: Scala
 
     abstract class AbsCell {
       type T
@@ -202,7 +202,7 @@ OO 抽象方式定义的 Cell 类型。
 抽象值成员 ``init``\ 。我们可以通过给出这两个成员的具体定义来对这个类型进行实例化。
 例如：
 
-.. code:: Scala
+.. code-block:: Scala
 
     val cell = new AbsCell { type T = int; val init = 1 }
     cell.set(cell.get * 2)
@@ -215,7 +215,7 @@ OO 抽象方式定义的 Cell 类型。
 也可以对其进行访问。下面这段代码将一个 cell 的值恢复成为其初始值（\ ``init``\ ），
 而无需关心 cell 值的类型是什么。
 
-.. code:: Scala
+.. code-block:: Scala
 
       def reset(c: AbsCell): unit = c.set(c.init)
 
@@ -226,7 +226,7 @@ OO 抽象方式定义的 Cell 类型。
 是 Scala 的一个新颖的特性，其理论基础是 *νObj calculus* [36]。 路径依赖类型要依靠
 其前缀路径的不可变性，下面给出一个违反了不可变性的例子：
 
-.. code:: Scala
+.. code-block:: Scala
 
     var flip = false
     def f(): AbsCell = {
@@ -252,7 +252,7 @@ Selection）。从概念上说，这与路径依赖类型（例如：\ ``p.Inner
 \ ``C`` 有一个 ``incr`` 方法，对其值 ``+1``\ ，其子类 ``D`` 由一个 ``decr`` 方法，
 对其值 ``-1``\ 。
 
-.. code:: Scala
+.. code-block:: Scala
 
     class C {
       protected var x = 0
@@ -264,7 +264,7 @@ Selection）。从概念上说，这与路径依赖类型（例如：\ ``p.Inner
 
 从而我们可以将相关调用串接起来：
 
-.. code:: Scala
+.. code-block:: Scala
 
     val d = new D; d.incr.decr
 
@@ -282,7 +282,7 @@ publish/subscribe 模式，它有两个主要类型：subjects 和 observers。S
 为参数，而 ``notify`` 方法则以发出通知的 subject 对象为参数。因此，这两个类型在方
 法签名中都引用到了对方。 这个模式的所有要素都在如下系统中：
 
-.. code:: Scala
+.. code-block:: Scala
 
     abstract class SubjectObserver {
       type S <: Subject
@@ -309,7 +309,7 @@ publish/subscribe 模式，它有两个主要类型：subjects 和 observers。S
 和 ``Observer`` 的类型分别通过这两个抽象类型引用对方。 另外还要注意，\ ``Subject`` 
 类使用了一个特殊的标注 ``requires``\ ：
 
-.. code:: Scala
+.. code-block:: Scala
 
     abstract class Subject requires S { ...
 
@@ -325,7 +325,7 @@ publish/subscribe 模式，它有两个主要类型：subjects 和 observers。S
 如下面的 ``SensorReader`` 对象，将传感器（sensors）作为 subjects，而将显示器
 （displays）作为 observers。
 
-.. code:: Scala
+.. code-block:: Scala
 
     object SensorReader extends SubjectObserver {
       type S = Sensor
@@ -351,7 +351,7 @@ publish/subscribe 模式，它有两个主要类型：subjects 和 observers。S
 对象实例的时候是必须的。当然，用户也可以再定义一个抽象的 ``SensorReader`` 类型，
 未来再通过继承进行实例化。此时，这两个抽象类型也可以通过抽象类型来覆盖，如：
 
-.. code:: scala
+.. code-block:: scala
 
     class AbsSensorReader extends SubjectObserver {
       type S <: Sensor
@@ -361,7 +361,7 @@ publish/subscribe 模式，它有两个主要类型：subjects 和 observers。S
 
 下面的代码演示了 ``SensorReader`` 如何使用：
 
-.. code:: scala
+.. code-block:: scala
 
     object Test {
       import SensorReader._
@@ -391,7 +391,7 @@ publish/subscribe 模式，它有两个主要类型：subjects 和 observers。S
 
 1. 类型定义，\ ``C`` 的定义可以重写如下：
 
-.. code:: scala
+.. code-block:: scala
 
    class C { 
      type t
@@ -405,13 +405,13 @@ publish/subscribe 模式，它有两个主要类型：subjects 和 observers。S
 
 2. 以 ``T`` 为参数创建实例的调用：\ ``new C[T]`` 可以写成：
 
-.. code:: scala
+.. code-block:: scala
 
    new C { type t = T }
 
 3. 如果 ``C[T]`` 出现在调用基类构造符的场合，则其子类的定义将会进行如下扩充：
 
-.. code:: scala
+.. code-block:: scala
 
    type t = T
 

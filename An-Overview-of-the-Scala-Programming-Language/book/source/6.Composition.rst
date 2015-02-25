@@ -6,7 +6,7 @@
 mixin compostion）和 [14、25] 中提出的更加对称的混入模块（mixin modules），以及 
 *traits* [42] 这三者的融合。我们先看一个例子，如下这个迭代器的抽象描述：
 
-.. code:: scala
+.. code-block:: scala
 
     trait AbsIterator[T] {
       def hasNext: boolean
@@ -18,7 +18,7 @@ mixin compostion）和 [14、25] 中提出的更加对称的混入模块（mixin
 混入。下面，我们用一个 ``trait`` 继承自 ``AbsIterator``\ ，并增加一个方法 ``foreach``\ ，
 用于将一个函数作用于该迭代子返回的每一个元素上。
 
-.. code:: scala
+.. code-block:: scala
 
     trait RichIterator[T] extends AbsIterator[T] {
       def foreach(f: T => unit): unit =
@@ -27,7 +27,7 @@ mixin compostion）和 [14、25] 中提出的更加对称的混入模块（mixin
 
 下面是一个具体的迭代子类定义，用于连续返回一个字符串的每一个字符：
 
-.. code:: scala
+.. code-block:: scala
 
     class StringIterator(s: String) extends AbsIterator[char] {
       private var i = 0
@@ -41,7 +41,7 @@ mixin compostion）和 [14、25] 中提出的更加对称的混入模块（mixin
 者可以重用一个类的增量内容，也就是非继承的内容。这种机制使人可以将 ``RichIterator`` 
 和 ``StringIterator`` 合并，在如下所示的例子将一个字符串的所有字母打成一列。
 
-.. code:: scala
+.. code-block:: scala
 
     object Test {
       def main(args: Array[String]): unit = {
@@ -67,7 +67,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 \ ``C`` 的全序 L(C) 是 ``C`` 的所有基类的一个全排序（total order），根据如下规则
 构成：假设 ``C`` 的定义为：
 
-.. code:: scala
+.. code-block:: scala
 
     class C extends B0 with ... with Bn { ... } .
 
@@ -76,7 +76,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 出现过的类。最前面的是类 ``C`` 本身，作为这个全序的头一个类。例如，\ ``Iter`` 类
 的全序是：
 
-.. code:: scala
+.. code-block:: scala
 
     { Iter, RichIterator, StringIterator, AbsIterator, AnyRef, Any }
 
@@ -85,7 +85,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 满足另一个性质：一个类的全序永远包括其基类的全序作为后缀。例如，\ ``StringIterator`` 
 的全序化：
 
-.. code:: scala
+.. code-block:: scala
 
     { StringIterator, AbsIterator, AnyRef, Any }
 
@@ -115,7 +115,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 **父类调用（Super Calls）** 。我们考虑设计一个同步迭代器，也就是其操作在多线程之
 间是互斥的。 
 
-.. code:: Scala
+.. code-block:: Scala
 
     trait SyncIterator[T] extends AbsIterator[T] {
       abstract override def hasNext: boolean = synchronized(super.hasNext)
@@ -124,7 +124,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 
 想要构造一个针对 ``String`` 的 Rich ``SyncIterator``\ ，可以用这三个类构成：
 
-.. code:: Scala
+.. code-block:: Scala
 
     StringIterator(someString) with RichIterator[char] with SyncIterator[char]
 
@@ -134,7 +134,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 ``StringIterator``\ ，应该有误），因此它们出现在 mixin 中的顺序没有影响，即上例写
 成这样也是等价的：
 
-.. code:: Scala
+.. code-block:: Scala
 
     StringIterator(someString) with SyncIterator[char] with RichIterator[char]
 
@@ -165,7 +165,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 与多重继承方式之间最主要的差异）。例如，考虑另一个与 ``SyncIterator`` 类似的类，
 它将其返回的每个元素都打印到标准输出上： 
 
-.. code:: Scala
+.. code-block:: Scala
 
     trait LoggedIterator[T] extends AbsIterator[T] {
       abstract override def next: T = {
@@ -175,7 +175,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 
 我们可以将这两种迭代子（\ ``sychronized`` 和 ``logged``\ ）通过 mixin 组合在一起：
 
-.. code:: scala
+.. code-block:: scala
 
     class Iter2 extends StringIterator(someString)
                    with SyncIterator[char]
@@ -183,7 +183,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 
 在这里，\ ``Iter2`` 的全序化是：
 
-.. code:: Scala
+.. code-block:: Scala
 
     { Iter2, LoggedIterator, SyncIterator, StringIterator, AbsIterator, AnyRef, Any }
 
@@ -192,7 +192,7 @@ linearization 可以翻成线性化或者全序化，在计算机领域一般取
 则最终引用 ``StringIterator`` 的 ``next`` 方法。 如果想对记录日志的动作进行同步，
 仅需要把两个 mixin 的顺序反过来即可实现：
 
-.. code:: Scala
+.. code-block:: Scala
 
     class Iter2 extends StringIterator(someString)
                    with LoggedIterator[char]

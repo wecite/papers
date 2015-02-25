@@ -9,7 +9,7 @@
 据。 我们看一个例子：针对仅包含加法的代数项（algebraic term）求值。采用面向对象的
 模式，我们可以根据一个代数项的结构进行解构来实现：
 
-.. code:: Scala
+.. code-block:: Scala
 
     abstract class Term {
       def eval: int
@@ -45,7 +45,7 @@ Scala 提供了一套很自然的方式来用函数式编程模型来完成上�
 同时，Scala 引入了一种机制，可以将 ``case class`` 的构造方法作为模式匹配表达式的
 匹配模式。 采用 ``case class`` 实现的代数项计算方式如下：
 
-.. code:: Scala
+.. code-block:: Scala
 
     abstract class Term
     case class Num(x: int) extends Term
@@ -54,14 +54,14 @@ Scala 提供了一套很自然的方式来用函数式编程模型来完成上�
 在此基础上，类似 ``1 + 2 + 3`` 这样的表达式，可以无需使用 ``new`` 操作，而是直接
 采用 ``case class`` 的构造方法：
 
-.. code:: Scala
+.. code-block:: Scala
 
     Plus(Plus(Num(1), Num(2)), Num(3))
 
 Scala的模式匹配表达式提供了将 ``case class`` 的构造方法作为模式的手段，采用模式匹
 配实现的 ``eval`` 方法如下：
 
-.. code:: Scala
+.. code-block:: Scala
 
     object Interpreter {
       def eval(term: Term): int = term match {
