@@ -185,13 +185,23 @@ htmlhelp_basename = 'ScalaOverviewdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+'pointsize': '12pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': '''
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=WenQuanYi Zen Hei, ItalicFont=Kaiti SC]{WenQuanYi Micro Hei}
+\setCJKmonofont[Scale=0.9]{Droid Sans Mono}
+\setCJKfamilyfont{song}[BoldFont=WenQuanYi Zen Hei]{WenQuanYi Zen Hei}
+\setCJKfamilyfont{sf}[BoldFont=WenQuanYi Zen Hei]{WenQuanYi Zen Hei}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+'''
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
