@@ -2,6 +2,16 @@
 
     \setcounter{secnumdepth}{-1}
 
+Contributors
+============
+
+翻译：王玮
+
+校对：邓草原
+
+2015 年春 于 北京
+
+
 译序
 ====
 

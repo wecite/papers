@@ -16,6 +16,7 @@ Switzerland
 
 Technical Report LAMP-REPORT-2006-001
 
+
 摘要（Abstract）
 ----------------
 

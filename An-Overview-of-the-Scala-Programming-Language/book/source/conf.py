@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Scala 语言概览'
-copyright = u'2015, Martin Odersky, Philippe Altherr, Vincent Cremet, Iulian Dragos Gilles Dubochet, Burak Emir, Sean McDirmid, Stéphane Micheloud, Nikolay Mihaylov, Michel Schinz, Erik Stenman, Lex Spoon, Matthias Zenger'
+copyright = u'2006, Martin Odersky 等'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -190,6 +190,10 @@ latex_elements = {
 # The font size ('10pt', '11pt' or '12pt').
 'pointsize': '12pt',
 
+# Get rid of blank pages between chapters.
+'classoptions': ',oneside',
+'babel': '\\usepackage[english]{babel}',
+
 # Additional stuff for the LaTeX preamble.
 'preamble': '''
 \usepackage{setspace}
@@ -208,8 +212,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'ScalaOverview.tex', u'\\unexpanded{Scala 语言概览}',
-   u'Martin Odersky, Philippe Altherr, Vincent Cremet, Iulian Dragos Gilles Dubochet, Burak Emir, Sean McDirmid, Stéphane Micheloud, Nikolay Mihaylov, Michel Schinz, Erik Stenman, Lex Spoon, Matthias Zenger', 'manual'),
+  ('index', 'ScalaOverview.tex', u'\\unexpanded{Scala 语言概览}', u'Martin Odersky \\and Philippe Altherr \\and Vincent Cremet \\and Iulian Dragos \\and Gilles Dubochet \\and Burak Emir \\and Sean McDirmid \\and Stéphane Micheloud \\and Nikolay Mihaylov \\and Michel Schinz \\and Erik Stenman \\and Lex Spoon \\and Matthias Zenger', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -276,7 +279,7 @@ texinfo_documents = [
 epub_title = u'Scala 语言概览'
 epub_author = u'Martin Odersky, Philippe Altherr, Vincent Cremet, Iulian Dragos Gilles Dubochet, Burak Emir, Sean McDirmid, Stéphane Micheloud, Nikolay Mihaylov, Michel Schinz, Erik Stenman, Lex Spoon, Matthias Zenger'
 epub_publisher = u'Martin Odersky, Philippe Altherr, Vincent Cremet, Iulian Dragos Gilles Dubochet, Burak Emir, Sean McDirmid, Stéphane Micheloud, Nikolay Mihaylov, Michel Schinz, Erik Stenman, Lex Spoon, Matthias Zenger'
-epub_copyright = u'2015, Martin Odersky, Philippe Altherr, Vincent Cremet, Iulian Dragos Gilles Dubochet, Burak Emir, Sean McDirmid, Stéphane Micheloud, Nikolay Mihaylov, Michel Schinz, Erik Stenman, Lex Spoon, Matthias Zenger'
+epub_copyright = u'2015, Martin Odersky 等'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'ScalaOverview'
