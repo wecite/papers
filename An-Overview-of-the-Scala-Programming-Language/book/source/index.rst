@@ -3,15 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ScalaOverview's documentation!
+Scala 语言概览
 =========================================
-
-Contents:
 
 .. toctree::
    :maxdepth: 2
+   :numbered: 
 
-   README
+   Cover
+   Preface
    0.Abstract
    1.Introduction
    2.A_Java-Like_Language
@@ -26,10 +26,4 @@ Contents:
    B.Conclusion
    C.References
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

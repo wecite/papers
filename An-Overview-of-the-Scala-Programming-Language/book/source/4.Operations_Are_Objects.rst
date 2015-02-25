@@ -1,4 +1,4 @@
-4 操作也是对象（Operations Are Objects）
+操作也是对象（Operations Are Objects）
 ----------------------------------------
 
 Scala 是一种函数式编程语言，也就是说每一个函数都是一个值。Scala 有很简洁的语法用
@@ -173,8 +173,10 @@ For comprehension 对应于 ``map``\ 、\ ``flatMap`` 和 ``filter`` 等高阶�
 上面这个使用 for comprehension 实现的 ``sqrts`` 与 4.4 节那个实现是相同的。
 
 For comprehension 的主要优势在于它并不受特定数据类型的限制，任何定义了 ``map``\ 、
-\ ``flatMap`` 和 ``filter`` 方法的类型都可以使用它，包括所有序列类型[2]、选项值（
+\ ``flatMap`` 和 ``filter`` 方法的类型都可以使用它，包括所有序列类型 [#]_、选项值（
 optional values）和数据库接口以及一些其他类型。用户还可以将 for comprehension 用
 于自定义类型，只要定义和实现了相关方法。 在 Scala 中，For 循环与 comprehensions 
 类似，对应于 ``foreach`` 和 ``filter`` 的组合。例如：列表 1 当中的 for 循环： 
 ``for (val arg <- args) ...`` 对应于 ``args foreach (arg => ...)`` 。
+
+.. [#] Arrays 尚未定义所有的序列的方法，因为其中的一些方法需要运行时的类型，而这尚未实现。
