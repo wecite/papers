@@ -1,4 +1,4 @@
-解构（Decomposition）
+7 解构（Decomposition）
 -----------------------
 
 面向对象的解构模式（Object-Oriented Decomposition）

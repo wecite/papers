@@ -1,4 +1,4 @@
-操作也是对象（Operations Are Objects）
+4 操作也是对象（Operations Are Objects）
 ----------------------------------------
 
 Scala 是一种函数式编程语言，也就是说每一个函数都是一个值。Scala 有很简洁的语法用
