@@ -1,7 +1,7 @@
 *.class
 *.log
 
-build/*
+build/
 
 # sbt specific
 .cache/
