@@ -2,12 +2,13 @@
 
     \setcounter{secnumdepth}{-1}
 
-Contributors
+译者
 ============
 
 翻译：王玮
 
 校对：邓草原
+
 
 2015 年春 于 北京
 
@@ -30,12 +31,13 @@ Contributors
 去看其讲解的思路，而非某些具体的代码。另外不要忽视每一段内容，因为文中经常出现讲
 解某一方面内容的时候，穿插其他相关思路的说明。
 
+王玮 2015 年 2 月 于 北京
+
 原译序
 ======
 
-（2008-9）
 
-「Scala 概述」（\ `An Overview of the Scala Programming Language 
+《Scala 语言概览》（\ `An Overview of the Scala Programming Language 
 <http://www.scala-lang.org/docu/files/ScalaOverview.pdf>`__\ ）是瑞士洛桑联邦理工
 学院（EPFL）的程序设计实验室的 Scala 发明者们写的一篇 TR，针对现行的 Scala 版本。
 由于要对这种语言进行比较完整的描述，篇幅又不太长，因此学术味有点浓，而且部分内容
@@ -43,3 +45,5 @@ Contributors
 清晰的文章，不但让人对 Scala 有较为深入的了解，而且对编程语言设计、函数式/面向对
 象编程等领域的基本概念和最新进展都能够有所接触，是难得的文献。因此自然有了翻译过
 来的冲动，内容错漏难免，拿出来大家讨论而已。
+
+王玮 2008 年 9 月 于 北京

@@ -121,16 +121,16 @@ and associativity）。一个解决方案是像 Haskell 或 SML 那样在定义�
 
 .. code-block:: scala
 
-        (所有字母)
-        |
-        ^
-        &
-        < >
-        = !
-        :
-        + -
-        * / %
-        (所有其他特殊字符)
+    (all letters)
+    |
+    ^
+    &
+    < >
+    = !
+    :
+    + -
+    * / %
+    (all other special characters)
 
 操作符一般是左结合的，\ ``x + y + z`` 被解释为 ``(x + y) + z``\ ，唯一的例外是以
 冒号（\ ``:``\ ）结尾的操作符是右结合的。一个例子是列表构造（list-consing）操作符 
