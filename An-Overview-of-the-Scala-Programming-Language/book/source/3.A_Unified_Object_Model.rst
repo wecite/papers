@@ -71,7 +71,7 @@ Scala 统一对象模型的另一个方面体现为每一个操作都是一个�
 可以用 ``(arg startsWith "-")`` 作为语法糖衣（syntactic sugar）来替代默认的用法 
 ``(arg.startsWith("-"))``\ 。 下面用一个例子来说明用户自定义操作符如何声明和使用：
 一个表示自然数的类 ``Nat``\ ，它用 ``Zero`` 和 ``Succ`` 这两个类的实例来表示一个
-数字（当然很低效），每一个数字 N 用 ``new`` SuccN(Zero) 来表示。我们先定义一个抽
+数字（当然很低效），每一个数字 *N* 用 **new** Succ\ :sup:`N` \(Zero) 来表示。我们先定义一个抽
 象类来描述自然数所支持的所有操作。根据 ``Nat`` 的定义，自然数有两个抽象方法：
 \ ``isZero``\ 、\ ``pred``\ ，和三个具体方法：\ ``succ``\ 、\ ``+``\ 、\ ``-``\ 。 
 
@@ -84,7 +84,7 @@ Scala 统一对象模型的另一个方面体现为每一个操作都是一个�
       def + (x: Nat): Nat =
         if (x.isZero) this else succ + x.pred
       def - (x: Nat): Nat =
-        if (x.isZero) this else pred -x.pred
+        if (x.isZero) this else pred - x.pred
     }
 
 注意，Scala 允许定义无参数方法，这种方法一旦名字被引用到即会调用，无需传递参数列
