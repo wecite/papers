@@ -22,15 +22,11 @@
 自本文发表之后 Scala 的若干变化
 ------------------------------------------
 
-需要说明的是，原文撰写于 2006 年，对应的大约是 Scala 2.0，少量内容跟现在的 Scala （截至 2.11.x）有些不同了，这些不同可以在这里找到：\ ::
+需要说明的是，原文撰写于 2006 年，对应的大约是 Scala 2.0，少量内容跟现在的 Scala （截至 2.11.x）有些不同了，这些不同可以在这里找到：
 
-  `Scala Changelog`_
+http://www.scala-lang.org/download/changelog.html
 
-.. _`Scala Changelog`: http://www.scala-lang.org/download/changelog.html
-
-
-文中涉及的主要不同有：
-
+跟本文有关的主要变化有：
 
 AnyVal 子类的小写字母别名已被放弃 [#]_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
