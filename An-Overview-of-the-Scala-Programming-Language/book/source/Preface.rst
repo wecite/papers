@@ -15,7 +15,7 @@
 这份文档由王玮翻译完成，我做了校对，并用 reStructedText_ 和 sphinx_ 排版输出。
 本文对于理解 Scala 为什么会设计成这样非常有帮助。
 
-.. _reStructedText: http://docutils.sourceforge.net/docs/user/rst/quickref.html
+.. _reStructedText: http://sphinx-doc.org/rest.html
 .. _sphinx: http://sphinx-doc.org/
 
 
