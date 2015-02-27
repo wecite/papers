@@ -78,7 +78,7 @@ Scala 统一对象模型的另一个方面体现为每一个操作都是一个�
 .. code-block:: scala
 
     abstract class Nat {
-      def isZero: Boolean
+      def isZero: boolean
       def pred: Nat
       def succ: Nat = new Succ(this)
       def + (x: Nat): Nat =
@@ -97,13 +97,13 @@ Scala 统一对象模型的另一个方面体现为每一个操作都是一个�
 .. code-block:: scala
 
     object Zero extends Nat {
-      def isZero: Boolean = true
+      def isZero: boolean = true
       def pred: Nat = throw new Error("Zero.pred")
       override def toString: String = "Zero"
     }
         
     class Succ(n: Nat) extends Nat {
-      def isZero: Boolean = false
+      def isZero: boolean = false
       def pred: Nat = n
       override def toString: String = "Succ("+n+")"
     }
@@ -205,9 +205,9 @@ Scala 这样定义其 *getter* 和 *setter*\ ：
 .. code-block:: Scala
 
     class Celsius {
-      private var d: Int = 0
-      def degree: Int = d
-      def degree_=(x: Int): Unit = if (x >= 273) d = x
+      private var d: int = 0
+      def degree: int = d
+      def degree_=(x: int): unit = if (x >= 273) d = x
     }
 
 使用者可以使用这两个方法，如同他们是一个类成员变量一样：

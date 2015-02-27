@@ -12,8 +12,8 @@ Scala 是一种函数式编程语言，也就是说每一个函数都是一个�
 
 .. code-block:: Scala
 
-    def exists[T] (xs: Array[T], p: T => Boolean) = {
-      var i: Int = 0
+    def exists[T] (xs: Array[T], p: T => boolean) = {
+      var i: int = 0
       while (i < xs.length && !p(xs(i))) i = i + 1
       i < xs.length
     }
