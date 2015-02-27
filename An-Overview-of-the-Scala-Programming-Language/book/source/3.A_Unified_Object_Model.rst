@@ -7,7 +7,7 @@ Scala 采用了一种纯粹的面向对象的模型，如同 Smalltalk 一样：
 类（Classes）
 ~~~~~~~~~~~~~~~~~
 
-.. figure:: images/image-scala-hierarchy.JPG
+.. figure:: images/image-scala-hierarchy.jpg
    :alt: Image
 
 图1（*原文为 Figure 2，但图上是 Figure 1 —— 译注*）展示了 Scala 的类层次结构。每一

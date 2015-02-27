@@ -78,7 +78,7 @@ For-comprehensions 的语法从 Scala 2.5 开始\ `有了改变 <http://www.scal
 
    for (x <- List(1, 2, 3) if x % 2 == 0) println(x)
 
-也即，生成器（generator）中的变量 ``x`` 前不再需要 ``val`` 关键字，而且可以直接跟一个 ``if`` 开头的卫子句（guarded）。
+也即，生成器（generator）中的变量 ``x`` 前不再需要 ``val`` 关键字，而且可以直接跟一个 ``if`` 开头的守护子句（guarded）。
 
 .. [#] Scala 2.8 及以前的源码树在 http://lampsvn.epfl.ch/trac/scala/browser/scala
 
@@ -86,13 +86,13 @@ For-comprehensions 的语法从 Scala 2.5 开始\ `有了改变 <http://www.scal
 怎样自己制作本电子书
 --------------------------
 
-本电子书作为 shphix 项目安家在
+本电子书作为 sphinx 项目安家在
 
 https://github.com/wecite/papers/tree/master/An-Overview-of-the-Scala-Programming-Language/book
 
 制作的步骤为（以 linux 环境为例）：
 
-安装 Python 和 pip：
+安装 python 和 pip：
 
 .. code-block:: shell
 
@@ -196,7 +196,7 @@ https://github.com/wecite/papers/tree/master/An-Overview-of-the-Scala-Programmin
 
 
 《Scala 语言概览》（\ `An Overview of the Scala Programming Language`_\ ）
-是瑞士洛桑联邦理工学院（EPFL）的程序设计实验室的 Scala 发明者们写的一篇，针对现行
+是瑞士洛桑联邦理工学院（EPFL）的程序设计实验室的 Scala 发明者们写的一篇技术报告，针对现行
 的 Scala 版本。由于要对这种语言进行比较完整的描述，篇幅又不太长，因此学术味有点浓，
 而且部分内容略显简略、杂乱。但是，我仍然感觉这篇文章是长期以来看到过的对一门语言介
 绍最完整、清晰的文章，不但让人对 Scala 有较为深入的了解，而且对编程语言设计、函数

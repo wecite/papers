@@ -126,9 +126,9 @@ Scala 还可以定义一个没有名字的函数，例如下面这个简版的 `
     def hasZeroRow(matrix: Array[Array[int]]) =
       matrix exists (row => row forall (0 ==))
 
-注意上述代码和相关操作的语言描述的对应性：“test whether in the matrix there exists 
-a row such that in the row all elements are zeroes”（*检测一个矩阵，看看它是否有一
-行的所有元素都等于 0 。这里保留英语原文，因为原文中使用斜体部分对应于上述代
+注意上述代码和相关操作的语言描述的对应性：“test whether in the *matrix* there *exists* 
+a *row* such that in the *row all* elements are zeroes”（*“检测一个矩阵，看看它是否有一
+行的所有元素都等于 0” 。这里保留英语原文，因为原文中使用斜体部分对应于上述代
 码的内容，体现两种语法的对应关系 —— 译注*）。还要注意一点：在上面的匿名方法中，我
 们略去了参数 ``row`` 的类型，因为其类型可以被 Scala 编译器根据 ``matrix.exists`` 
 方法推断出来。

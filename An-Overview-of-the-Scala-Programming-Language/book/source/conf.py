@@ -45,7 +45,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Scala 语言概览'
+project = u'ScalaOverview'
 copyright = u'2006, Martin Odersky 等'
 
 # The version info for the project you're documenting, acts as replacement for
