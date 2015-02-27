@@ -199,7 +199,7 @@ latex_elements = {
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{fontspec}
-\setmonofont[Scale=0.9]{Droid Sans Mono}
+\setmonofont[Scale=0.9]{Lucida Sans Typewriter}
 \usepackage{xeCJK}
 \setCJKmainfont[BoldFont=WenQuanYi Zen Hei, ItalicFont=Kaiti SC]{WenQuanYi Micro Hei}
 \setCJKmonofont[Scale=0.9]{WenQuanYi Zen Hei Mono}
