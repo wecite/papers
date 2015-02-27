@@ -199,10 +199,10 @@ latex_elements = {
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{fontspec}
-\setmonofont[Scale=0.9]{DejaVu Sans Mono}
+\setmonofont[Scale=0.9]{Droid Sans Mono}
 \usepackage{xeCJK}
 \setCJKmainfont[BoldFont=WenQuanYi Zen Hei, ItalicFont=Kaiti SC]{WenQuanYi Micro Hei}
-\setCJKmonofont[Scale=0.9]{WenQuanYi Zen Hei}
+\setCJKmonofont[Scale=0.9]{WenQuanYi Zen Hei Mono}
 \setCJKfamilyfont{song}[BoldFont=WenQuanYi Zen Hei]{WenQuanYi Zen Hei}
 \setCJKfamilyfont{sf}[BoldFont=WenQuanYi Zen Hei]{WenQuanYi Zen Hei}
 \XeTeXlinebreaklocale "zh"
